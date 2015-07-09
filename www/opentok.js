@@ -163,7 +163,7 @@ var TBError, TBGenerateDomHelper, TBGetScreenRatios, TBGetZIndex, TBSuccess, TBU
 streamElements = {};
 
 getPosition = function(divName) {
-  var computedStyle, curleft, curtop, height, marginBottom, marginLeft, marginRight, marginTop, pubDiv, width;
+  var computedStyle, curleft, curtop, height, marginBottom, marginLeft, marginRight, marginTop, pubDiv, width, pixelRatio;
   pubDiv = document.getElementById(divName);
   if (!pubDiv) {
     return {};
@@ -181,11 +181,14 @@ getPosition = function(divName) {
   marginBottom = parseInt(computedStyle.marginBottom) || 0;
   marginLeft = parseInt(computedStyle.marginLeft) || 0;
   marginRight = parseInt(computedStyle.marginRight) || 0;
+  if (window.device && window.device.platform && window.device.platform === 'Android' && window.devicePixelRatio) {
+    pixelRatio = window.devicePixelRatio;
+  }
   return {
-    top: (curtop + marginTop) * window.devicePixelRatio,
-    left: (curleft + marginLeft) * window.devicePixelRatio,
-    width: (width - (marginLeft + marginRight)) * window.devicePixelRatio,
-    height: (height - (marginTop + marginBottom)) * window.devicePixelRatio
+    top: (curtop + marginTop) * pixelRatio,
+    left: (curleft + marginLeft) * pixelRatio,
+    width: (width - (marginLeft + marginRight)) * pixelRatio,
+    height: (height - (marginTop + marginBottom)) * pixelRatio
   };
 };
 
