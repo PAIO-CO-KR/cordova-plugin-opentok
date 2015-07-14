@@ -184,6 +184,10 @@ getPosition = function(divName) {
   if (window.device && window.device.platform && window.device.platform === 'Android' && window.devicePixelRatio) {
     pixelRatio = window.devicePixelRatio;
   }
+  else {
+    pixelRatio = 1;
+  }
+  
   return {
     top: (curtop + marginTop) * pixelRatio,
     left: (curleft + marginLeft) * pixelRatio,
